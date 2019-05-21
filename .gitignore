@@ -1,5 +1,6 @@
 /target
 /test_plans/data.csv
+/test_plans/Widget.jtl
 
 ### STS ###
 .apt_generated

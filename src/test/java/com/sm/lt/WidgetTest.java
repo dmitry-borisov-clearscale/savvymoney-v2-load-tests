@@ -49,7 +49,11 @@ public class WidgetTest {
     }
 
     private static void run(List<Session> sessions) throws Exception {
-        try (FileOutputStream outputStream = new FileOutputStream("test_plans/data.csv")) {
+        File data = new File("test_plans/data.csv");
+        if (data.exists()) {
+            data.delete();
+        }
+        try (FileOutputStream outputStream = new FileOutputStream(data)) {
             String str = sessions.stream().map(Session::getSmToken).collect(Collectors.joining("\n"));
             byte[] strToBytes = str.getBytes();
             outputStream.write(strToBytes);
@@ -101,7 +105,7 @@ public class WidgetTest {
         }
 
         // Store execution results into a .jtl file
-        File logFile = new File(jmeterHome + File.separator + "example.jtl");
+        File logFile = new File(jmeterHome + File.separator + "Widget.jtl");
         //delete log file if exists
         if (logFile.exists()) {
             boolean delete = logFile.delete();
@@ -121,10 +125,10 @@ public class WidgetTest {
         FileUtils.deleteDirectory(new File(repDir)); //delete old report
         reportGenerator.generate();
 
-        System.out.println("Test completed. See " + jmeterHome + File.separator + "example.jtl file for results");
+        System.out.println("Test completed. See " + jmeterHome + File.separator + "Widget.jtl file for results");
 
         //Open HTML report in default browser
-        File htmlFile = new File(repDir + "\\index.html");
+        File htmlFile = new File(repDir + File.separator + "index.html");
         Desktop.getDesktop().browse(htmlFile.toURI());
     }
 
