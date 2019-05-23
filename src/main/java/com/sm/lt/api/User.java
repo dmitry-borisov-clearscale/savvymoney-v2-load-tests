@@ -89,9 +89,9 @@ public class User {
             throw new RuntimeException("Unique user id suffix is invalid: " + uniqueSuffix);
         }
 
-        final String identifierSuffix = "310-" + uniqueSuffix;
+        final String identifierSuffix = "900005001-" + uniqueSuffix;
         return User.builder()
-                   .partnerId(310L)
+                   .partnerId(900005001L)
                    .partnerMemberID("pmi-at-" + identifierSuffix)
                    .firstName("LOADTESTING")
                    .lastName("WIDGET")

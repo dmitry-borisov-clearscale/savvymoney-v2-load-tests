@@ -23,13 +23,13 @@ public abstract class ConfigurationParser {
     private static User parseUser(Config config) {
         return User
                 .builder()
-                .partnerId(310L)
-                .partnerMemberID("pmi-310-" + config.getString("pmi"))
+                .partnerId(900005001L)
+                .partnerMemberID("pmi-lt-900005001-" + config.getString("pmi"))
                 .firstName(config.getString("firstName"))
                 .lastName(config.getString("lastName"))
                 .birthday(DateUtils.parseDateFromConfig(config.getString("birthday")))
                 .ssn(config.getString("ssn"))
-                .email("qa+at-310-" + config.getString("pmi") + "@example.com")
+                .email("qa+lt-900005001-" + config.getString("pmi") + "@example.com")
                 .address1(config.getString("address1"))
                 .address2(config.getString("address2"))
                 .state(config.getString("state"))
