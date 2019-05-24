@@ -13,8 +13,12 @@ import com.typesafe.config.Config;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public abstract class ConfigurationParser {
 
-    public static List<User> getUsers(List<? extends Config> users) {
+    public static List<User> getUsersWithoutResolving(List<? extends Config> users) {
         return Lists.transform(users, ConfigurationParser::parseUser);
+    }
+
+    public static List<User> getUsersWithResolving(Config users) {
+        return Lists.transform(users.resolve().getConfigList("list"), ConfigurationParser::parseUser);
     }
 
     private static User parseUser(Config config) {

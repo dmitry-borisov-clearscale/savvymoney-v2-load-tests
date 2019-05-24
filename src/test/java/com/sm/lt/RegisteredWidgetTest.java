@@ -44,7 +44,7 @@ public class RegisteredWidgetTest {
 
     @Test
     public void test() throws Exception {
-        List<User> users = ConfigurationParser.getUsers(CONFIGURATION.get("users", Config::getConfigList));
+        List<User> users = ConfigurationParser.getUsersWithResolving(CONFIGURATION.get("users", Config::getConfig));
         List<Session> sessions = users
                 .stream()
                 .map(User::configureAsRegisteredUser)
