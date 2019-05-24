@@ -5,6 +5,7 @@ import java.net.URI;
 import lombok.extern.slf4j.Slf4j;
 
 import com.google.common.base.Preconditions;
+import com.sm.lt.infrastructure.configuration.CurrentEnvironment;
 import com.sm.lt.infrastructure.services.Services;
 import com.sm.lt.infrastructure.services.iframe.IFrameUtils;
 
@@ -30,7 +31,7 @@ public class UI {
     }
 
     private static String pageUrlForRegular(Page page, String smToken) {
-        final String baseUrl = "https://sandbox.savvymoney.com"; // SANDBOX
+        final String baseUrl = CurrentEnvironment.BASE_UI_URL;
         final String urlToEnter = page.build(baseUrl, smToken);
         log.info("No iframe. URL: {}", urlToEnter);
         return urlToEnter;
@@ -40,7 +41,7 @@ public class UI {
         final IFrameUtils.Builder builder = Services
                 .iframeUtils()
                 .builder()
-                .environment(IFrameUtils.Environment.SANDBOX)
+                .environment(CurrentEnvironment.ENV)
                 .width("1080px")
                 .height("1145px")
                 .left(ZERO_IFRAME_SHIFT)

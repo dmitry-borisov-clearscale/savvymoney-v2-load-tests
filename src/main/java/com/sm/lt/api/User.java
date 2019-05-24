@@ -49,12 +49,6 @@ public class User {
 
     String report;
 
-    public static User create() {
-        final User user = buildUser();
-        log.info("User was built. Data: {}", jsonizer(user));
-        return user;
-    }
-
     public User configureAsRegisteredUser() {
         final CreditServiceClient client = Services.creditServiceClient();
         final UserRequestDTO userRequestDTO = UserRequestDTO.fromUser(this);
@@ -79,31 +73,6 @@ public class User {
         }
         log.info("User was configured as one who accepted disclosure. PMI: {}", this.partnerMemberID);
         return this;
-    }
-
-    // TODO
-    private static User buildUser() {
-        final String uniqueSuffix = "sndbx-lt";
-        if (!isValidUniqueSuffix(uniqueSuffix)) {
-            log.error("Unique user id suffix is invalid: {}", uniqueSuffix);
-            throw new RuntimeException("Unique user id suffix is invalid: " + uniqueSuffix);
-        }
-
-        final String identifierSuffix = "900005001-" + uniqueSuffix;
-        return User.builder()
-                   .partnerId(900005001L)
-                   .partnerMemberID("pmi-at-" + identifierSuffix)
-                   .firstName("LOADTESTING")
-                   .lastName("WIDGET")
-                   .birthday(LocalDate.of(1999, 1, 1))
-                   .ssn("666250616")
-                   .email("qa+at-" + identifierSuffix + "@example.com")
-                   .address1("6625 103RD ST")
-                   .address2("")
-                   .state("NY")
-                   .city("FOREST HILLS")
-                   .zip("11375")
-                   .build();
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.sm.lt.infrastructure.services;
 
+import com.sm.lt.infrastructure.configuration.CurrentEnvironment;
 import com.sm.lt.infrastructure.services.credit_service.CreditServiceClient;
 import com.sm.lt.infrastructure.services.credit_session_manager.CreditSessionManagerClient;
 import com.sm.lt.infrastructure.services.credit_session_manager.UserToParametersMapper;
@@ -8,23 +9,19 @@ import com.sm.lt.infrastructure.services.iframe.IFrameUtils;
 public class Services {
 
     public static CreditSessionManagerClient creditSessionManagerClient() {
-        return new CreditSessionManagerClient(
-                "http://iproxy-sandbox.savvymoney.com/credit-session-manager/session"); // SANDBOX
+        return new CreditSessionManagerClient(CurrentEnvironment.CREDIT_SESSION_MANAGER_CLIENT_URL);
     }
 
     public static UserToParametersMapper userToParametersMapper() {
-        final String relayState = "https://sandbox.savvymoney.com/ui/sso"; // SANDBOX
-        final String entityID = "savvymoney-test";
-        return new UserToParametersMapper(relayState, entityID);
+        return new UserToParametersMapper(
+                CurrentEnvironment.USER_TO_PARAMETERS_MAPPER_RELAY_STATE, CurrentEnvironment.USER_TO_PARAMETERS_MAPPER_RELAY_ENTITY_ID);
     }
 
     public static IFrameUtils iframeUtils() {
-        return new IFrameUtils(
-                "https://sandbox.savvymoney.com/ui/iframe"); // SANDBOX
+        return new IFrameUtils(CurrentEnvironment.IFRAME_UTILS_URL);
     }
 
     public static CreditServiceClient creditServiceClient() {
-        return new CreditServiceClient(
-                "http://sandb-albui-v6wdzdcw4e5d-2012102494.us-east-1.elb.amazonaws.com/credit-service");
+        return new CreditServiceClient(CurrentEnvironment.CREDIT_SERVICE_CLIENT_URL);
     }
 }

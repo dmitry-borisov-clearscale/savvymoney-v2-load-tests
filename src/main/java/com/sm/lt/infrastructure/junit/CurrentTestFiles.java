@@ -17,10 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
-import com.rometools.utils.Strings;
+import com.sm.lt.infrastructure.configuration.ConfigurationUtils;
 
 @Slf4j
-public class CurrentTest implements TestRule {
+public class CurrentTestFiles implements TestRule {
 
     private static final String TEST_FOLDER = "test";
     private static final String RESULT_FOLDER = "result";
@@ -39,7 +39,8 @@ public class CurrentTest implements TestRule {
             @Override
             public void evaluate() throws Throwable {
                 try {
-                    Path path = Paths.get(getRootFolder(), folderName);
+                    String rootFolder = ConfigurationUtils.getTestsRootFolder().orElse("target" + File.separator + "jmeter");
+                    Path path = Paths.get(rootFolder, folderName);
                     createFolder(path);
                     createFolder(path.resolve(TEST_FOLDER));
                     createFolder(path.resolve(RESULT_FOLDER));
@@ -50,27 +51,6 @@ public class CurrentTest implements TestRule {
                 }
             }
         };
-    }
-
-    private static void createFolder(Path folder) throws IOException {
-        File file = folder.toFile();
-        if (file.exists()) {
-            FileUtils.deleteDirectory(file);
-            log.info("Folder {} deleted", folder);
-        }
-        boolean mkdirs = file.mkdirs();
-        log.info("Folder {} created: {}", folder, mkdirs);
-        if (!mkdirs) {
-            log.error("Folder {} not created", folder);
-            throw new IllegalStateException("Dirs were not created");
-        }
-    }
-
-    private static String getRootFolder() {
-        String env = System.getProperty("SAVVY_JMETER_TESTS_FOLDER");
-        return Strings.isNotEmpty(env)
-                ? env
-                : "target" + File.separator + "jmeter";
     }
 
     public void saveToTestFolder(String fileName, String fileBody) throws IOException {
@@ -111,5 +91,19 @@ public class CurrentTest implements TestRule {
 
     public Path getTestFolder() {
         return baseDir.resolve(TEST_FOLDER);
+    }
+
+    private static void createFolder(Path folder) throws IOException {
+        File file = folder.toFile();
+        if (file.exists()) {
+            FileUtils.deleteDirectory(file);
+            log.info("Folder {} deleted", folder);
+        }
+        boolean mkdirs = file.mkdirs();
+        log.info("Folder {} created: {}", folder, mkdirs);
+        if (!mkdirs) {
+            log.error("Folder {} not created", folder);
+            throw new IllegalStateException("Dirs were not created");
+        }
     }
 }

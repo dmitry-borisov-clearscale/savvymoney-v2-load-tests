@@ -2,6 +2,7 @@
 /target
 /test_plans/data.csv
 /test_plans/Widget.jtl
+/local_settings/local.conf
 
 ### STS ###
 .apt_generated
