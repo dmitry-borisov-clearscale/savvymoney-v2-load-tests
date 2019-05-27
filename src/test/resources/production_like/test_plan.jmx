@@ -845,6 +845,27 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
+        <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Response Assertion" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">import groovy.json.JsonSlurper;
+
+def failureMessage = &quot;&quot;;
+def responseCode = prev.getResponseCode();
+
+if(!&quot;200&quot;.equals(responseCode)){
+    failureMessage += &quot;Expected &lt;response code&gt; [200] but we got instead [&quot; + prev.getResponseCode() + &quot;]\n\n&quot; ;
+}
+
+if (failureMessage?.trim()) {
+    log.error(&quot;Invalid HTTP Response Code for URL &quot; + prev.getUrlAsString() + &quot;. Got: &quot; + responseCode);
+    AssertionResult.setFailureMessage(failureMessage);
+    AssertionResult.setFailure(true);
+}</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Assertion>
+        <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
