@@ -7,13 +7,7 @@
         </encoder>
     </appender>
 
-    <!--
-        This is needed to log errors connected to HTTP requests.
-        Though it adds to many records to log this is the only one way to see if something bad happens on HTTP Request layer.
-    -->
-    <logger name="org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl$JMeterDefaultHttpClientConnectionOperator" level="DEBUG"/>
-
-    <root level="DEBUG">
+    <root level="INFO">
         <!-- appender referenced after it is defined -->
         <appender-ref ref="STDOUT"/>
     </root>
