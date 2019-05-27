@@ -33,13 +33,13 @@ public class ProductionLikeTest {
 
     private static final Configuration CONFIGURATION = ConfigurationUtils.getConfiguration(TEST_PLAN_CONFIGURATION);
     private static final Map<String, String> VARIABLES = CONFIGURATION.getVariables(ImmutableList.of(
-            var("ProductionLike", "regGroupNumberOfThreads"),
-            var("ProductionLike", "regGroupRumpUpPeriod"),
-            var("ProductionLike", "regGroupLoopCount"),
-            var("ProductionLike", "unregGroupNumberOfThreads"),
-            var("ProductionLike", "unregGroupRumpUpPeriod"),
-            var("ProductionLike", "unregGroupLoopCount"),
-            var("ProductionLike", "thinkTime")));
+            var("ProductionLikeTest", "regGroupNumberOfThreads"),
+            var("ProductionLikeTest", "regGroupRumpUpPeriod"),
+            var("ProductionLikeTest", "regGroupLoopCount"),
+            var("ProductionLikeTest", "unregGroupNumberOfThreads"),
+            var("ProductionLikeTest", "unregGroupRumpUpPeriod"),
+            var("ProductionLikeTest", "unregGroupLoopCount"),
+            var("ProductionLikeTest", "thinkTime")));
 
     @ClassRule
     public static final CurrentEnvironmentSetter currentEnvironmentSetter = new CurrentEnvironmentSetter(CONFIGURATION);

@@ -87,13 +87,13 @@ public class JMeterTestExecutor {
             SaveService.saveTree(testPlanTree, out);
         }
 
-        // Run JMeter Test
-        jmeter.configure(testPlanTree);
-        jmeter.run();
-
-        // Report Generator
-        FileUtils.deleteDirectory(resultsFolder.toFile()); //delete old report
-        reportGenerator.generate();
+//        // Run JMeter Test
+//        jmeter.configure(testPlanTree);
+//        jmeter.run();
+//
+//        // Report Generator
+//        FileUtils.deleteDirectory(resultsFolder.toFile()); //delete old report
+//        reportGenerator.generate();
     }
 
     private Arguments constructArguments() throws MalformedURLException {

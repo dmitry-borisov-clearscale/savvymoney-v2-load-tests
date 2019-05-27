@@ -32,9 +32,9 @@ public class RegisteredWidgetTest {
 
     private static final Configuration CONFIGURATION = ConfigurationUtils.getConfiguration(TEST_PLAN_CONFIGURATION);
     private static final Map<String, String> VARIABLES = CONFIGURATION.getVariables(ImmutableList.of(
-            var("RegisteredWidget", "numberOfThreads"),
-            var("RegisteredWidget", "rumpUpPeriod"),
-            var("RegisteredWidget", "loopCount")));
+            var("RegisteredWidgetTest", "numberOfThreads"),
+            var("RegisteredWidgetTest", "rumpUpPeriod"),
+            var("RegisteredWidgetTest", "loopCount")));
 
     @ClassRule
     public static final CurrentEnvironmentSetter currentEnvironmentSetter = new CurrentEnvironmentSetter(CONFIGURATION);

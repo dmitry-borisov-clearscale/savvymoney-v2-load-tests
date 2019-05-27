@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <!-- definition of appender STDOUT -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-25thread] [%-5level] [%logger{40}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+        This is needed to log errors connected to HTTP requests.
+        Though it adds to many records to log this is the only one way to see if something bad happens on HTTP Request layer.
+    -->
+    <logger name="org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl$JMeterDefaultHttpClientConnectionOperator" level="DEBUG"/>
+
+    <root level="DEBUG">
+        <!-- appender referenced after it is defined -->
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
