@@ -74,6 +74,7 @@ public class ProductionLikeTest {
                 .build()
                 .run();
 
+        Assert.assertTrue("Report is empty: " + result, JMeterResultsAnalyzer.notEmptyReport(result));
         Assert.assertTrue("There are errors logged in final report: " + result, JMeterResultsAnalyzer.noErrorsInReport(result));
     }
 }

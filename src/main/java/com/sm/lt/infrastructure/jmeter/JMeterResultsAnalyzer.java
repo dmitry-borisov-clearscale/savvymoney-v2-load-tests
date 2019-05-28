@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public abstract class JMeterResultsAnalyzer {
 
+    private static final CSVFormat CSV_FORMAT = CSVFormat.DEFAULT.withFirstRecordAsHeader();
     private static final int SUCCESS_COLUMN_INDEX = 7;
 
     public static boolean noErrorsInReport(Path resultsReport) throws IOException {
-        CSVFormat format = CSVFormat.DEFAULT.withFirstRecordAsHeader();
-        CSVParser csv = CSVParser.parse(resultsReport.toFile(), StandardCharsets.UTF_8, format);
+        CSVParser csv = CSVParser.parse(resultsReport.toFile(), StandardCharsets.UTF_8, CSV_FORMAT);
         for (CSVRecord record : csv) {
             boolean success = Boolean.parseBoolean(record.get(SUCCESS_COLUMN_INDEX));
             if (!success) {
@@ -28,4 +28,8 @@ public abstract class JMeterResultsAnalyzer {
         return true;
     }
 
+    public static boolean notEmptyReport(Path resultsReport) throws IOException {
+        CSVParser csv = CSVParser.parse(resultsReport.toFile(), StandardCharsets.UTF_8, CSV_FORMAT);
+        return csv.iterator().hasNext();
+    }
 }
