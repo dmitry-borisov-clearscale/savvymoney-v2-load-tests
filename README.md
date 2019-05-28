@@ -53,3 +53,12 @@ In order to change path to local settings file one can use (see pom.xml):
 * during maven execution: `-Dsavvy.local.settings={PUT_YOUR_PATH_HERE}`
 * during IDE executions: via environment variable `SAVVY_LOCAL_SETTING`
 
+
+Execution
+=========
+
+`./mvnw clean test`
+
+Tests can be filtered by using regular Maven Surefire Plugin filtering features. 
+* http://maven.apache.org/surefire/maven-surefire-plugin/examples/single-test.html
+* https://maven.apache.org/surefire/maven-surefire-plugin/examples/inclusion-exclusion.html
