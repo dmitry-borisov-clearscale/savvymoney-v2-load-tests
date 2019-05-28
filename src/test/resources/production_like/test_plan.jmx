@@ -1547,19 +1547,17 @@
         <stringProp name="cacheKey">true</stringProp>
         <stringProp name="filename"></stringProp>
         <stringProp name="parameters"></stringProp>
-        <stringProp name="script">import groovy.json.JsonSlurper;
+        <stringProp name="script">def failureMessage = &quot;&quot;
+def responseCode = prev.getResponseCode()
 
-def failureMessage = &quot;&quot;;
-def responseCode = prev.getResponseCode();
-
-if(!&quot;200&quot;.equals(responseCode)){
-    failureMessage += &quot;Expected &lt;response code&gt; [200] but we got instead [&quot; + prev.getResponseCode() + &quot;]\n\n&quot; ;
+if (&quot;200&quot; != responseCode) {
+    failureMessage += &quot;Expected &lt;response code&gt; [200] but we got instead [&quot; + prev.getResponseCode() + &quot;]\n\n&quot;
 }
 
 if (failureMessage?.trim()) {
-    log.error(&quot;Invalid HTTP Response Code for URL &quot; + prev.getUrlAsString() + &quot;. Got: &quot; + responseCode);
-    AssertionResult.setFailureMessage(failureMessage);
-    AssertionResult.setFailure(true);
+    log.error(&quot;Invalid HTTP Response Code for URL &quot; + prev.getUrlAsString() + &quot;. Got: &quot; + responseCode)
+    AssertionResult.setFailureMessage(failureMessage)
+    AssertionResult.setFailure(true)
 }</stringProp>
         <stringProp name="scriptLanguage">groovy</stringProp>
       </JSR223Assertion>

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,6 +21,7 @@ import com.sm.lt.api.User;
 import com.sm.lt.infrastructure.configuration.Configuration;
 import com.sm.lt.infrastructure.configuration.ConfigurationParser;
 import com.sm.lt.infrastructure.configuration.ConfigurationUtils;
+import com.sm.lt.infrastructure.jmeter.JMeterResultsAnalyzer;
 import com.sm.lt.infrastructure.jmeter.JMeterTestExecutor;
 import com.sm.lt.infrastructure.junit.CurrentEnvironmentSetter;
 import com.sm.lt.infrastructure.junit.CurrentTestFiles;
@@ -63,7 +65,7 @@ public class ProductionLikeTest {
         currentTestFiles.saveToTestFolder("unreg_data.csv",
                 unregSessions.stream().map(Session::getSmToken).collect(Collectors.joining("\n")));
         Path testPlan = currentTestFiles.copyToTestFolder("test_plan.jmx", JMETER_TEST_PLAN);
-        JMeterTestExecutor
+        Path result = JMeterTestExecutor
                 .builder()
                 .variables(VARIABLES)
                 .testPlan(testPlan)
@@ -71,5 +73,7 @@ public class ProductionLikeTest {
                 .resultsFolder(currentTestFiles.getResultsFolder())
                 .build()
                 .run();
+
+        Assert.assertTrue("There are errors logged in final report: " + result, JMeterResultsAnalyzer.noErrorsInReport(result));
     }
 }

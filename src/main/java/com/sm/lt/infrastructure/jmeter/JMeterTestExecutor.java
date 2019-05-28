@@ -39,7 +39,12 @@ public class JMeterTestExecutor {
     private final Path resultsFolder;
     private final Map<String, String> variables;
 
-    public void run() throws URISyntaxException, IOException, ConfigurationException, GenerationException {
+    /**
+     * Configures and executes JMeter scenario.
+     *
+     * @return Path to results file. It is jtl-file, but internally it has CSV format.
+     */
+    public Path run() throws URISyntaxException, IOException, ConfigurationException, GenerationException {
         // Jmeter location
         Path jmeterHome = Paths.get(JMETER_CONFIGURATION_FOLDER.toURI());
         Path jmeterProperties = jmeterHome.resolve("bin").resolve("jmeter.properties");
@@ -94,6 +99,8 @@ public class JMeterTestExecutor {
         // Report Generator
         FileUtils.deleteDirectory(resultsFolder.toFile()); //delete old report
         reportGenerator.generate();
+
+        return logFile;
     }
 
     private Arguments constructArguments() throws MalformedURLException {
