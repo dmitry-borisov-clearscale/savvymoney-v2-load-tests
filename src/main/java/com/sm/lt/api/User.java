@@ -79,7 +79,7 @@ public class User {
      * Internally API implementation uses {@code javax.validation.constraints.Email}. In practice it has length
      * restriction.
      */
-    private static boolean isValidUniqueSuffix(String uniqueSuffix) {
+    public static boolean isValidUniqueSuffix(String uniqueSuffix) {
         final int length = uniqueSuffix.length();
         return length >= 1 && length <= MAX_UNIQUE_SUFFIX_LENGTH;
     }

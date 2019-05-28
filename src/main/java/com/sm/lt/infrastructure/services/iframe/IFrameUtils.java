@@ -26,6 +26,7 @@ public class IFrameUtils {
     }
 
     public enum Environment {
+        LOCAL("local"),
         DEV("dev"),
         STAB("stab"),
         STAGING("staging"),

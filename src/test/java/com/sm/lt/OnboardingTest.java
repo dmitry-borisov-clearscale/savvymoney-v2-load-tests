@@ -36,7 +36,8 @@ public class OnboardingTest {
             var("OnboardingTest", "numberOfThreads"),
             var("OnboardingTest", "rumpUpPeriod"),
             var("OnboardingTest", "loopCount"),
-            var("OnboardingTest", "thinkTime")));
+            var("OnboardingTest", "thinkTime"),
+            var("OnboardingTest", "skipAuth")));
 
     @ClassRule
     public static final CurrentEnvironmentSetter currentEnvironmentSetter = new CurrentEnvironmentSetter(CONFIGURATION);
@@ -46,10 +47,13 @@ public class OnboardingTest {
 
     @Test
     public void test() throws Exception {
-        List<User> users = ConfigurationParser.getUsersWithResolving(CONFIGURATION.get("users", Config::getConfig));
+        List<User> users = ConfigurationParser.getUsersWithResolvingAndPmiCreation(CONFIGURATION.get("users", Config::getConfig));
         List<Session> sessions = Lists.transform(users, Session::start);
 
-        currentTestFiles.saveToTestFolder("data.csv", sessions.stream().map(Session::getSmToken).collect(Collectors.joining("\n")));
+        currentTestFiles.saveToTestFolder("data.csv", sessions
+                .stream()
+                .map(OnboardingTest::constructUserRow)
+                .collect(Collectors.joining("\n")));
         Path testPlan = currentTestFiles.copyToTestFolder("test_plan.jmx", JMETER_TEST_PLAN);
         JMeterTestExecutor
                 .builder()
@@ -59,5 +63,16 @@ public class OnboardingTest {
                 .resultsFolder(currentTestFiles.getResultsFolder())
                 .build()
                 .run();
+    }
+
+    private static String constructUserRow(Session session) {
+        return session.getSmToken()
+                + ',' + session.getUser().getAddress1()
+                + ',' + session.getUser().getCity()
+                + ',' + session.getUser().getEmail()
+                + ',' + session.getUser().getFirstName()
+                + ',' + session.getUser().getLastName()
+                + ',' + session.getUser().getState()
+                + ',' + session.getUser().getZip();
     }
 }
