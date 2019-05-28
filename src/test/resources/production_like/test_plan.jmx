@@ -353,64 +353,6 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
-        <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Response Assertion" enabled="true">
-          <stringProp name="cacheKey">true</stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="script">import groovy.json.JsonSlurper;
-
-def failureMessage = &quot;&quot;;
-def responseCode = prev.getResponseCode();
-
-if(!&quot;200&quot;.equals(responseCode)){
-    failureMessage += &quot;Expected &lt;response code&gt; [200] but we got instead [&quot; + prev.getResponseCode() + &quot;]\n\n&quot; ;
-}
-
-if (failureMessage?.trim()) {
-    log.error(&quot;Invalid HTTP Response Code for URL &quot; + prev.getUrlAsString() + &quot;. Got: &quot; + responseCode);
-    AssertionResult.setFailureMessage(failureMessage);
-    AssertionResult.setFailure(true);
-}</stringProp>
-          <stringProp name="scriptLanguage">groovy</stringProp>
-        </JSR223Assertion>
-        <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>false</xml>
-              <fieldNames>true</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-              <sentBytes>true</sentBytes>
-              <url>true</url>
-              <threadCounts>true</threadCounts>
-              <idleTime>true</idleTime>
-              <connectTime>true</connectTime>
-            </value>
-          </objProp>
-          <stringProp name="filename"></stringProp>
-        </ResultCollector>
-        <hashTree/>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Registered Users" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -787,7 +729,7 @@ if (failureMessage?.trim()) {
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
 	&quot;activityValue&quot;:&quot;widget_click_to_view_offer&quot;, &#xd;
-	&quot;description&quot;:	&quot;offerType=HOME_EQUITY_LOAN; offerId=54555&quot;&#xd;
+	&quot;description&quot;:	&quot;offerType=HOME_EQUITY_LOAN; offerId=10000&quot;&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
@@ -815,7 +757,7 @@ if (failureMessage?.trim()) {
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-	&quot;offerId&quot;:54555,&#xd;
+	&quot;offerId&quot;:10000,&#xd;
      &quot;offerType&quot;:&quot;HOME_EQUITY_LOAN&quot;,&#xd;
 	&quot;productName&quot;:	&quot;HOME_EQUITY_LOAN&quot;&#xd;
 }&#xd;
@@ -988,6 +930,7 @@ if (failureMessage?.trim()) {
         </HTTPSamplerProxy>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /presentation/log/activity" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
@@ -1000,7 +943,6 @@ if (failureMessage?.trim()) {
               </elementProp>
             </collectionProp>
           </elementProp>
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <stringProp name="HTTPSampler.domain">${apiHost}</stringProp>
           <stringProp name="HTTPSampler.port">${apiPort}</stringProp>
           <stringProp name="HTTPSampler.protocol">${apiProtocol}</stringProp>
@@ -1169,7 +1111,7 @@ if (failureMessage?.trim()) {
           </UniformRandomTimer>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /presentation/credit/notifications/mark-as-read" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /presentation/credit/notifications/mark-as-read" enabled="false">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -1207,7 +1149,7 @@ if (failureMessage?.trim()) {
                 <stringProp name="Argument.value">{&#xd;
   &quot;featured&quot;: false,&#xd;
   &quot;location&quot;: &quot;dashboard&quot;,&#xd;
-  &quot;offerId&quot;: 57459,&#xd;
+  &quot;offerId&quot;: 10000,&#xd;
   &quot;offerType&quot;: &quot;TRANSFER_BALANCE_CC&quot;,&#xd;
   &quot;productName&quot;: &quot;CREDIT_CARD&quot;&#xd;
 }</stringProp>
@@ -1384,6 +1326,7 @@ if (failureMessage?.trim()) {
         </HTTPSamplerProxy>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /presentation/log/activity" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
@@ -1395,7 +1338,6 @@ if (failureMessage?.trim()) {
               </elementProp>
             </collectionProp>
           </elementProp>
-          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <stringProp name="HTTPSampler.domain">${apiHost}</stringProp>
           <stringProp name="HTTPSampler.port">${apiPort}</stringProp>
           <stringProp name="HTTPSampler.protocol">${apiProtocol}</stringProp>
@@ -1497,7 +1439,7 @@ if (failureMessage?.trim()) {
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-  &quot;offerId&quot;: 50621,&#xd;
+  &quot;offerId&quot;: 10000,&#xd;
   &quot;offerType&quot;: &quot;Balance Transfer&quot;,&#xd;
   &quot;productName&quot;: &quot;CREDIT_CARDS&quot;,&#xd;
   &quot;location&quot;: &quot;Offer Page&quot;&#xd;
@@ -1600,11 +1542,12 @@ if (failureMessage?.trim()) {
           </HeaderManager>
           <hashTree/>
         </hashTree>
-        <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Response Assertion" enabled="true">
-          <stringProp name="cacheKey">true</stringProp>
-          <stringProp name="filename"></stringProp>
-          <stringProp name="parameters"></stringProp>
-          <stringProp name="script">import groovy.json.JsonSlurper;
+      </hashTree>
+      <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="HTTP Response Assertion" enabled="true">
+        <stringProp name="cacheKey">true</stringProp>
+        <stringProp name="filename"></stringProp>
+        <stringProp name="parameters"></stringProp>
+        <stringProp name="script">import groovy.json.JsonSlurper;
 
 def failureMessage = &quot;&quot;;
 def responseCode = prev.getResponseCode();
@@ -1618,47 +1561,46 @@ if (failureMessage?.trim()) {
     AssertionResult.setFailureMessage(failureMessage);
     AssertionResult.setFailure(true);
 }</stringProp>
-          <stringProp name="scriptLanguage">groovy</stringProp>
-        </JSR223Assertion>
-        <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>false</xml>
-              <fieldNames>true</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-              <sentBytes>true</sentBytes>
-              <url>true</url>
-              <threadCounts>true</threadCounts>
-              <idleTime>true</idleTime>
-              <connectTime>true</connectTime>
-            </value>
-          </objProp>
-          <stringProp name="filename"></stringProp>
-        </ResultCollector>
-        <hashTree/>
-      </hashTree>
+        <stringProp name="scriptLanguage">groovy</stringProp>
+      </JSR223Assertion>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
     </hashTree>
   </hashTree>
 </jmeterTestPlan>
