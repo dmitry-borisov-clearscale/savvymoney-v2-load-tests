@@ -62,3 +62,49 @@ Execution
 Tests can be filtered by using regular Maven Surefire Plugin filtering features. 
 * http://maven.apache.org/surefire/maven-surefire-plugin/examples/single-test.html
 * https://maven.apache.org/surefire/maven-surefire-plugin/examples/inclusion-exclusion.html
+
+
+Results assertion
+=================
+
+As test are running using JUnit framework it is possible to make assertion.
+ 
+This approach is used after JMeter finishes its work and report file was generated.
+
+Logic from  class `com.sm.lt.infrastructure.jmeter.JMeterResultsAnalyzer` reads data from report and performs analysis checking
+common quality parameters.
+* maxFailuresPercent
+* maxResponseTime
+* maxAverageResponseTime
+
+Default values for this parameters are listed in `src/main/resources/defaults.conf` file. They can be overridden via standard 
+parameterization mechanism described above.
+
+As addition such quality parameters could be set per group of HTTP requests filtering by URL. This also can be overridden via standard
+parameterization mechanism.
+
+Here is an example.
+ 
+```
+ExampleTest = {
+
+  assertions = {
+    maxFailuresPercent = {
+      value = 15
+      enabled = true
+    }
+    maxResponseTime = {
+      enabled = false
+    }
+    perRequest = [{
+      regex = "/presentation/register/.*"
+      maxFailuresPercent = 15
+      maxResponseTime = 1000
+      maxAverageResponseTime = 300
+    }]
+  }
+}
+```
+
+It worth mentioning that in example above `maxFailuresPercent` and `maxResponseTime` override global parameters but only for this specific
+test run.
