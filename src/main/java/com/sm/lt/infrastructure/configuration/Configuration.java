@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.google.common.collect.ImmutableMap;
 import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 
 @Slf4j
 @Builder
@@ -35,6 +36,16 @@ public class Configuration {
                 .withFallback(test)
                 .withFallback(defaults);
         return get(config, path, methodRef);
+    }
+
+    public Config getAssertions(String testName) {
+        Config testConfiguration = get(testName, Config::getConfig);
+        Config forTest = testConfiguration.hasPath("assertions")
+                ? testConfiguration.getConfig("assertions")
+                : ConfigFactory.empty();
+        Config result = forTest.withFallback(get("assertions", Config::getConfig));
+        log.info("Got assertions: {}", result);
+        return result;
     }
 
     public Map<String, String> getVariables(List<TestVariableSetting> variables) {
