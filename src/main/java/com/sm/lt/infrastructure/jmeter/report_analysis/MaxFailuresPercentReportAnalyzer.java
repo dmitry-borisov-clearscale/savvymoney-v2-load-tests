@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.apache.commons.csv.CSVRecord;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 public final class MaxFailuresPercentReportAnalyzer implements ReportAnalyzer {
 
@@ -30,6 +32,7 @@ public final class MaxFailuresPercentReportAnalyzer implements ReportAnalyzer {
         }
         double actualPercentage = ((double) failuresCounter / allCounter) * 100;
 
+        log.debug("Calculated: {}. Expected: {}", actualPercentage, maxFailuresPercent);
         return (actualPercentage > maxFailuresPercent)
                 ? Optional.of(format("maxFailuresPercent exceeded. Expected: %.2f%%. Got: %.2f%%", maxFailuresPercent, actualPercentage))
                 : Optional.empty();

@@ -34,13 +34,14 @@ public class RegisteredWidgetTest {
     private static final String JMETER_TEST_PLAN = "tests/registered_widget/test_plan.jmx";
     private static final String TEST_PLAN_CONFIGURATION = "tests/registered_widget/test_plan.conf";
 
-    private static final String TEST_NAME = ProductionLikeTest.class.getSimpleName();
+    private static final String TEST_NAME = RegisteredWidgetTest.class.getSimpleName();
 
     private static final Configuration CONFIGURATION = ConfigurationUtils.getConfiguration(TEST_PLAN_CONFIGURATION);
     private static final Map<String, String> VARIABLES = CONFIGURATION.getVariables(ImmutableList.of(
             var(TEST_NAME, "numberOfThreads"),
             var(TEST_NAME, "rumpUpPeriod"),
-            var(TEST_NAME, "loopCount")));
+            var(TEST_NAME, "loopCount"),
+            var(TEST_NAME, "thinkTime")));
 
     @ClassRule
     public static final CurrentEnvironmentSetter currentEnvironmentSetter = new CurrentEnvironmentSetter(CONFIGURATION);
@@ -50,7 +51,8 @@ public class RegisteredWidgetTest {
 
     @Test
     public void test() throws Exception {
-        List<User> users = ConfigurationParser.getUsersWithResolving(CONFIGURATION.get("users", Config::getConfig));
+        List<User> users = ConfigurationParser.generateUsers(
+                CONFIGURATION.get("user.template", Config::getConfig), CONFIGURATION.get(TEST_NAME + ".numberOfThreads", Config::getInt));
         List<Session> sessions = users
                 .stream()
                 .map(User::configureAsRegisteredUser)

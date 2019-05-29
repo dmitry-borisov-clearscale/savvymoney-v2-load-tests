@@ -5,7 +5,9 @@ import java.util.Optional;
 import org.apache.commons.csv.CSVRecord;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 public final class MaxResponseTimeReportAnalyzer implements ReportAnalyzer {
 
@@ -21,6 +23,7 @@ public final class MaxResponseTimeReportAnalyzer implements ReportAnalyzer {
 
     @Override
     public Optional<String> getResult() {
+        log.debug("Counter: {}. maxResponseTime: {}", counter, maxResponseTime);
         return (counter > 0)
                 ? Optional.of("maxResponseTime exceeded. Got " + counter + " request(s) longer than " + maxResponseTime + "ms")
                 : Optional.empty();

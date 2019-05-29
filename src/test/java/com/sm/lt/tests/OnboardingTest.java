@@ -53,7 +53,8 @@ public class OnboardingTest {
 
     @Test
     public void test() throws Exception {
-        List<User> users = ConfigurationParser.getUsersWithResolvingAndPmiCreation(CONFIGURATION.get("users", Config::getConfig));
+        List<User> users = ConfigurationParser.generateUsers(
+                CONFIGURATION.get("user.template", Config::getConfig), CONFIGURATION.get(TEST_NAME + ".numberOfThreads", Config::getInt));
         List<Session> sessions = Lists.transform(users, Session::start);
 
         currentTestFiles.saveToTestFolder("data.csv", sessions

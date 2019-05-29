@@ -19,7 +19,10 @@ import com.sm.lt.infrastructure.services.credit_service.dto.UserResponseDTO;
 @Builder(toBuilder = true)
 public class User {
 
-    public static final int MAX_UNIQUE_SUFFIX_LENGTH = 18;
+    /**
+     *  This restriction is based on Credit Service behavior. It breaks down if email is too long.
+     */
+    public static final int MAX_UNIQUE_SUFFIX_LENGTH = 28;
 
     String firstName;
     String lastName;

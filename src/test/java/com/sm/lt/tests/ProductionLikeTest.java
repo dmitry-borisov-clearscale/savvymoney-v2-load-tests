@@ -1,7 +1,7 @@
 package com.sm.lt.tests;
 
 import static com.sm.lt.infrastructure.configuration.TestVariableSetting.*;
-import static org.hamcrest.collection.IsEmptyCollection.empty;
+import static org.hamcrest.collection.IsEmptyCollection.*;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -55,13 +55,17 @@ public class ProductionLikeTest {
 
     @Test
     public void test() throws Exception {
-        List<User> regUsers = ConfigurationParser.getUsersWithResolving(CONFIGURATION.get("regUsers", Config::getConfig));
+        List<User> regUsers = ConfigurationParser.generateUsers(
+                CONFIGURATION.get("regUser.template", Config::getConfig),
+                CONFIGURATION.get(TEST_NAME + ".regGroupNumberOfThreads", Config::getInt));
         List<Session> regSessions = regUsers
                 .stream()
                 .map(User::configureAsRegisteredUser)
                 .map(Session::start)
                 .collect(Collectors.toList());
-        List<User> unregUsers = ConfigurationParser.getUsersWithResolving(CONFIGURATION.get("unregUsers", Config::getConfig));
+        List<User> unregUsers = ConfigurationParser.generateUsers(
+                CONFIGURATION.get("unregUser.template", Config::getConfig),
+                CONFIGURATION.get(TEST_NAME + ".unregGroupNumberOfThreads", Config::getInt));
         List<Session> unregSessions = Lists.transform(unregUsers, Session::start);
 
         currentTestFiles.saveToTestFolder("reg_data.csv",

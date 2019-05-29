@@ -1,7 +1,7 @@
 package com.sm.lt.tests;
 
-import static com.sm.lt.infrastructure.configuration.TestVariableSetting.var;
-import static org.hamcrest.collection.IsEmptyCollection.empty;
+import static com.sm.lt.infrastructure.configuration.TestVariableSetting.*;
+import static org.hamcrest.collection.IsEmptyCollection.*;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -35,7 +35,7 @@ public class UnregisteredWidgetTest {
     private static final String JMETER_TEST_PLAN = "tests/unregistered_widget/test_plan.jmx";
     private static final String TEST_PLAN_CONFIGURATION = "tests/unregistered_widget/test_plan.conf";
 
-    private static final String TEST_NAME = ProductionLikeTest.class.getSimpleName();
+    private static final String TEST_NAME = UnregisteredWidgetTest.class.getSimpleName();
 
     private static final Configuration CONFIGURATION = ConfigurationUtils.getConfiguration(TEST_PLAN_CONFIGURATION);
     private static final Map<String, String> VARIABLES = CONFIGURATION.getVariables(ImmutableList.of(
@@ -52,7 +52,8 @@ public class UnregisteredWidgetTest {
 
     @Test
     public void test() throws Exception {
-        List<User> users = ConfigurationParser.getUsersWithResolving(CONFIGURATION.get("users", Config::getConfig));
+        List<User> users = ConfigurationParser.generateUsers(
+                CONFIGURATION.get("user.template", Config::getConfig), CONFIGURATION.get(TEST_NAME + ".numberOfThreads", Config::getInt));
         List<Session> sessions = Lists.transform(users, Session::start);
 
         currentTestFiles.saveToTestFolder("data.csv", sessions.stream().map(Session::getSmToken).collect(Collectors.joining("\n")));
