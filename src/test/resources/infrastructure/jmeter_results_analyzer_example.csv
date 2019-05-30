@@ -1,0 +1,7 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1559111297297,3235,GET /presentation/some,500,Internal Server Error,Thread Group 1-1,text,false,"Expected <response code> [200] but we got instead [500]",462,264,1,1,http://localhost:8080/presentation/some,3235,0,0
+1559111303833,1997,GET /presentation/register/user-status,500,Internal Server Error,Thread Group 1-1,text,false,"Expected <response code> [200] but we got instead [500]",462,264,1,1,http://localhost:8080/presentation/register/user-status,1996,0,1
+1559111305833,2054,GET /presentation/register/user-status,500,Internal Server Error,Thread Group 1-1,text,false,"Expected <response code> [200] but we got instead [500]",462,264,1,1,http://localhost:8080/presentation/register/user-status,2054,0,2
+1559111307833,205,GET /presentation/register/some-request,200,,Thread Group 1-1,text,true,,462,264,1,1,http://localhost:8080/presentation/register/user-status,2054,0,2
+1559111310978,975,GET /presentation/user-session/user-id,200,OK,Thread Group 1-1,text,true,,343,264,1,1,http://localhost:8080/presentation/user-session/user-id,975,0,0
+1559111315007,2001,GET /presentation/application/selector/widget,200,OK,Thread Group 1-1,text,true,,350,271,1,1,http://localhost:8080/presentation/application/selector/widget,2001,0,2

@@ -7,6 +7,8 @@
         </encoder>
     </appender>
 
+    <logger name="com.sm.lt.infrastructure.jmeter.report_analysis" level="DEBUG"/>
+
     <root level="INFO">
         <!-- appender referenced after it is defined -->
         <appender-ref ref="STDOUT"/>
