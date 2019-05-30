@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
+import com.sm.lt.infrastructure.credit_reports.CreditReportsReader;
 import com.sm.lt.infrastructure.services.Services;
 import com.sm.lt.infrastructure.services.credit_service.CreditServiceClient;
 import com.sm.lt.infrastructure.services.credit_service.dto.SetCreditReportDTO;
@@ -20,7 +21,7 @@ import com.sm.lt.infrastructure.services.credit_service.dto.UserResponseDTO;
 public class User {
 
     /**
-     *  This restriction is based on Credit Service behavior. It breaks down if email is too long.
+     * This restriction is based on Credit Service behavior. It breaks down if email is too long.
      */
     public static final int MAX_UNIQUE_SUFFIX_LENGTH = 28;
 
@@ -75,6 +76,14 @@ public class User {
             throw new AssertionError("Error while configuring user as one who accepted disclosure");
         }
         log.info("User was configured as one who accepted disclosure. PMI: {}", this.partnerMemberID);
+        return this;
+    }
+
+    public User uploadDefaultTuiCreditReport() {
+        sendCreditReport(
+                null,
+                CreditReportsReader.getDefaultCreditReport());
+        log.info("Default credit report uploaded. PMI: {}", this.partnerMemberID);
         return this;
     }
 

@@ -60,7 +60,7 @@ public class ProductionLikeTest {
                 CONFIGURATION.get(TEST_NAME + ".regGroupNumberOfThreads", Config::getInt));
         List<Session> regSessions = regUsers
                 .stream()
-                .map(User::configureAsRegisteredUser)
+                .peek(User::configureAsRegisteredUser)
                 .map(Session::start)
                 .collect(Collectors.toList());
         List<User> unregUsers = ConfigurationParser.generateUsers(

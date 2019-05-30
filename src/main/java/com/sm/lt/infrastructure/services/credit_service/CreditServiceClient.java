@@ -34,7 +34,7 @@ public class CreditServiceClient {
      */
     private static final String MEMBER_ID_PLACEHOLDER = "${USER_MEMBER_ID}"; // package private is only for tests
 
-    private static final CloseableHttpClient CLIENT = HttpUtils.defaultClient();
+    private static final CloseableHttpClient CLIENT = HttpUtils.defaultClient(120_000);
 
     private final String baseUrl;
 
@@ -79,7 +79,6 @@ public class CreditServiceClient {
     }
 
     public boolean uploadCreditReport(SetCreditReportDTO setCreditReportDTO) {
-        final long partnerId = setCreditReportDTO.getPartnerId();
         Preconditions.checkArgument(
                 setCreditReportDTO.getReportXml().contains(MEMBER_ID_PLACEHOLDER),
                 "Invalid usage. Credit Report should contain placeholder: " + MEMBER_ID_PLACEHOLDER);

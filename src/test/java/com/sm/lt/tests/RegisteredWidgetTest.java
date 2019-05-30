@@ -55,7 +55,8 @@ public class RegisteredWidgetTest {
                 CONFIGURATION.get("user.template", Config::getConfig), CONFIGURATION.get(TEST_NAME + ".numberOfThreads", Config::getInt));
         List<Session> sessions = users
                 .stream()
-                .map(User::configureAsRegisteredUser)
+                .peek(User::configureAsRegisteredUser)
+//                .peek(User::uploadDefaultTuiCreditReport)
                 .map(Session::start)
                 .collect(Collectors.toList());
 
